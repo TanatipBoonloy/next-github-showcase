@@ -1,10 +1,11 @@
 import React from 'react'
-import {Input, Button, Grid} from 'semantic-ui-react'
-import {withState} from 'recompose'
+import { Input, Button, Grid } from 'semantic-ui-react'
+import { withState } from 'recompose'
 
 const withValue = withState('value', 'setValue', '')
-const Searchbar = withValue(({onSubmit, value, setValue, loading}) => {
-  const handleSubmit = () => {
+const Searchbar = withValue(({ onSubmit, value, setValue, loading }) => {
+  const handleSubmit = (e) => {
+    e.preventDefault()
     onSubmit(value)
   }
 
@@ -13,18 +14,22 @@ const Searchbar = withValue(({onSubmit, value, setValue, loading}) => {
   }
 
   return (
-    <Grid>
-      <Grid.Row>
-        <Grid.Column width={14}>
-        <Input placeholder="...search" fluid onChange={handleInputChange}/>
-        </Grid.Column>
-        <Grid.Column width={2}>
-          <Button type="submit" onClick={handleSubmit} loading={loading} >
-            Search
-          </Button>
-        </Grid.Column>
-      </Grid.Row>
-    </Grid>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={14}>
+              <Input placeholder="...search" fluid onChange={handleInputChange} />
+            </Grid.Column>
+            <Grid.Column width={2}>
+              <Button type="submit" onClick={handleSubmit} loading={loading} >
+                Search
+              </Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </form>
+    </div>
   )
 })
 
